@@ -3,8 +3,14 @@ import { Login } from '../../Utils/Req'
 import { useState } from 'react'
 import Alert from '../Alerts/Alert'
 import { useNavigate } from "react-router-dom"
+import { useSelector , useDispatch } from 'react-redux'
+import { setName } from '../../features/user/userSlice'
 
 function LoginForm() {
+
+    const dispatch = useDispatch()
+
+
 
     const [user, setUser] = useState({
         Email: '',
@@ -29,6 +35,7 @@ function LoginForm() {
                 console.log(data?.message)
                 setSucces(true)
                 setError(false)
+                dispatch(setName(data?.user.FullName));
                 setMessageAPI(data?.message)
                 const role = data?.nameRole
                 localStorage.setItem('role', role)
